@@ -37,7 +37,7 @@ $ShellType = if ($PSVersionTable.PSVersion.Major -ge 6) { "pwsh" } else { "power
 
 # Initialize Oh My Posh
 Run-IfAvailable -ToolName "oh-my-posh" -Command {
-    oh-my-posh init $ShellType --config "~/.poshthemes/hotanphat.omp.json" | Invoke-Expression
+    oh-my-posh init $ShellType --config "~/.poshthemes/hotanphat2.omp.json" | Invoke-Expression
 }
 
 # Initialize Zoxide
@@ -110,7 +110,7 @@ Set-Alias -Name "..." -Value "cd ../.."
 # 'ls' is already an alias for Get-ChildItem in PowerShell
 # 'll' shows hidden files and details (like ls -la)
 function ll {
-    Get-ChildItem -Force -Verbose $args
+    Get-ChildItem -Force | Format-Table -AutoSize
 }
 
 # Git Workflow

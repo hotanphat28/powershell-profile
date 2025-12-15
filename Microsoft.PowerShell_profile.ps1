@@ -2,7 +2,7 @@
 $env:VIRTUAL_ENV_DISABLE_PROMPT = 1
 
 # 1. PRE-CHECKS & CONFIGURATION
-# -----------------------------------------------------------------------------
+# ::::
 Set-StrictMode -Version Latest
 
 # Define preferred editors in order (matches Chris Titus list)
@@ -12,7 +12,7 @@ $Editors = @("nvim", "pvim", "vim", "vi", "code", "codium", "notepad++", "sublim
 $Global:Editor = $Editors | Where-Object { Get-Command $_ -ErrorAction SilentlyContinue } | Select-Object -First 1
 
 # 2. HELPER FUNCTIONS
-# -----------------------------------------------------------------------------
+# ::::
 
 function Import-SafeModule {
     param([string]$ModuleName)
@@ -29,7 +29,7 @@ function Run-IfAvailable {
 }
 
 # 3. INITIALIZATION
-# -----------------------------------------------------------------------------
+# ::::
 Import-SafeModule "Terminal-Icons"
 
 # Dynamic Shell Detection
@@ -46,7 +46,7 @@ Run-IfAvailable -ToolName "zoxide" -Command {
 }
 
 # 4. PSREADLINE CONFIGURATION
-# -----------------------------------------------------------------------------
+# ::::
 Import-SafeModule "PSReadLine"
 Set-PSReadLineOption -EditMode Windows
 Set-PSReadLineOption -PredictionSource History
@@ -64,12 +64,13 @@ $BrandColors = @{
 Set-PSReadLineOption -Colors $BrandColors
 
 # 5. CORE FUNCTIONS
-# -----------------------------------------------------------------------------
+# ::::
 function Edit-Profile { & $Global:Editor $PROFILE }
 
 function Reload-Profile {
     & $PROFILE
-    Write-Host " [✔] Profile Reloaded" -ForegroundColor Cyan
+    Write-Host "[✓] Profile Reloaded" -ForegroundColor Cyan
+    Write-Host ""
 }
 
 # Linux 'sudo' behavior using Windows Terminal Elevation
@@ -101,7 +102,7 @@ function df {
 }
 
 # 6. ALIASES & SHORTCUTS
-# -----------------------------------------------------------------------------
+# ::::
 # Navigation
 Set-Alias -Name ".." -Value "cd .."
 Set-Alias -Name "..." -Value "cd ../.."
@@ -151,11 +152,12 @@ Set-Alias -Name "which" -Value "Get-Command"
 Set-Alias -Name "open" -Value "Invoke-Item"
 
 # 7. HELP FUNCTION
-# -----------------------------------------------------------------------------
+# ::::
 function Show-Help {
     Clear-Host
-    Write-Host ":: Terminal Help ::" -ForegroundColor Yellow
-    Write-Host "===================" -ForegroundColor DarkGray
+    Write-Host ":::::::::::::::::::::::" -ForegroundColor DarkGray
+    Write-Host ":::: Terminal Help ::::" -ForegroundColor Yellow
+    Write-Host ":::::::::::::::::::::::" -ForegroundColor DarkGray
     Write-Host ""
 
     $Format = "  {0,-15} {1}"
@@ -184,12 +186,12 @@ function Show-Help {
 }
 
 # 8. WELCOME
-# -----------------------------------------------------------------------------
+# ::::
 Clear-Host
-Write-Host "◦◦◦◦◦●○◦◦◦" -ForegroundColor Yellow
-Write-Host "◦◦◦◦●○●◦◦◦" -ForegroundColor Yellow
-Write-Host "◦◦◦●●○●◦◦◦" -ForegroundColor Yellow
-Write-Host "◦◦●●●○○◦◦◦" -ForegroundColor Yellow
+Write-Host "::::●○::::" -ForegroundColor Yellow
+Write-Host ":::●○●::::" -ForegroundColor Yellow
+Write-Host "::●●○●::::" -ForegroundColor Yellow
+Write-Host ":●●●○○::::" -ForegroundColor Yellow
 Write-Host ""
 Write-Host ":::: Greeting Master, System is ready ::::" -ForegroundColor DarkGray
 Write-Host ""

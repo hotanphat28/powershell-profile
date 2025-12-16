@@ -187,4 +187,5 @@ function Show-Help {
 
 # 8. WELCOME
 # ::::
+Clear-Host
 Invoke-Expression fastfetch

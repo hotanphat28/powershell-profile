@@ -187,13 +187,4 @@ function Show-Help {
 
 # 8. WELCOME
 # ::::
-Clear-Host
-Write-Host "::::●○::::" -ForegroundColor Yellow
-Write-Host ":::●○●::::" -ForegroundColor Yellow
-Write-Host "::●●○●::::" -ForegroundColor Yellow
-Write-Host ":●●●○○::::" -ForegroundColor Yellow
-Write-Host ""
-Write-Host ":::: Greeting Master, System is ready ::::" -ForegroundColor DarkGray
-Write-Host ""
-Write-Host ":::: Type 'Show-Help' for commands    ::::" -ForegroundColor DarkGray
-Write-Host ""
+Invoke-Expression fastfetch

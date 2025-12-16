@@ -116,11 +116,11 @@ function ll {
 
 # Git Workflow
 # Note: $args allows you to type messages without quotes (e.g., gc my update)
-function gs { git status }
-function ga { git add . }
-function gc { git commit -m "$args" }
-function gp { git push }
-function gpl { git pull }
+function gstatus { git status }
+function gadd { git add . }
+function gcommit { git commit -m "$args" }
+function gpush { git push }
+function gpull { git pull }
 function gfetch { git fetch }
 function gbranch { git branch }
 function gdelete { git branch -d $args }
@@ -178,8 +178,8 @@ function Show-Help {
     Write-Host ""
 
     Write-Host " [ GIT WORKFLOW ]" -ForegroundColor Magenta
-    Write-Host ($Format -f "gs / ga", "Status / Add All")
-    Write-Host ($Format -f "gc [msg]", "Commit")
+    Write-Host ($Format -f "gstatus / gadd", "Status / Add All")
+    Write-Host ($Format -f "gcommit [msg]", "Commit")
     Write-Host ($Format -f "lazyg [msg]", "Add + Commit + Push")
     Write-Host ($Format -f "gnew [name]", "New Branch")
     Write-Host ""

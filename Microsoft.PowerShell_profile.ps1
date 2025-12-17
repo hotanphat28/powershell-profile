@@ -37,7 +37,7 @@ $ShellType = if ($PSVersionTable.PSVersion.Major -ge 6) { "pwsh" } else { "power
 
 # Initialize Oh My Posh
 Run-IfAvailable -ToolName "oh-my-posh" -Command {
-    oh-my-posh init $ShellType --config "~/.poshthemes/hotanphat2.omp.json" | Invoke-Expression
+    oh-my-posh init $ShellType --config "$HOME/.poshthemes/hotanphat2.omp.json" | Invoke-Expression
 }
 
 # Initialize Zoxide
@@ -188,4 +188,7 @@ function Show-Help {
 # 8. WELCOME
 # ::::
 Clear-Host
-Invoke-Expression fastfetch
+# Initialize Fastfetch
+Run-IfAvailable -ToolName "fastfetch" -Command {
+    Invoke-Expression fastfetch
+}

@@ -1,3 +1,10 @@
+# Force eza to use ~/.config/eza instead of AppData
+$env:EZA_CONFIG_DIR = "$HOME\.config\eza"
+
+# Ensure no old color variables interfere
+$env:LS_COLORS = $null
+$env:EZA_COLORS = $null
+
 # Disable Python venv prompt change (handled by Oh My Posh)
 $env:VIRTUAL_ENV_DISABLE_PROMPT = 1
 
@@ -22,9 +29,16 @@ function Import-SafeModule {
 }
 
 function Run-IfAvailable {
-    param([string]$ToolName, [scriptblock]$Command)
+    param(
+        [string]$ToolName,
+        [scriptblock]$Command,
+        [scriptblock]$Fallback
+    )
     if (Get-Command $ToolName -ErrorAction SilentlyContinue) {
         & $Command
+    }
+    elseif ($Fallback) {
+        & $Fallback
     }
 }
 
@@ -54,12 +68,12 @@ Set-PSReadLineOption -PredictionViewStyle ListView
 Set-PSReadLineOption -HistoryNoDuplicates
 
 $BrandColors = @{
-    "Command"    = "#FFC90E"
-    "Parameter"  = "#D6D6D6"
-    "Operator"   = "#0EFFC9"
-    "Variable"   = "#C90EFF"
-    "String"     = "#F4F4F4"
-    "Comment"    = "#646464"
+    "Operator"  = "#FFC90E"  # Pure Brand Golden
+    "Command"   = "#FFDB4D"  # Golden + 20% White (High Visibility)
+    "String"    = "#FFF2CC"  # Golden + 80% White (Cream/Pale Yellow)
+    "Variable"  = "#D6A600"  # Golden + 15% Black (Deep Amber)
+    "Parameter" = "#D1C08A"  # Low Saturation (Khaki/Metallic Gold)
+    "Comment"   = "#75632D"  # Low Brightness + Low Saturation (Olive/Brown)
 }
 Set-PSReadLineOption -Colors $BrandColors
 
@@ -109,9 +123,15 @@ Set-Alias -Name "..." -Value "cd ../.."
 
 # Native Windows Listing
 # 'ls' is already an alias for Get-ChildItem in PowerShell
-# 'll' shows hidden files and details (like ls -la)
+# 'll' shows hidden files, details, icons and git using 'eza' otherwise fallback to Get-ChildItem in Powershell
 function ll {
-    Get-ChildItem -Force | Format-Table -AutoSize
+    Run-IfAvailable -ToolName "eza" `
+        -Command {
+            eza -lah --icons --git $args
+        } `
+        -Fallback {
+            Get-ChildItem -Force @args | Format-Table -AutoSize
+        }
 }
 
 # Git Workflow
